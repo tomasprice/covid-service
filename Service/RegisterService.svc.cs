@@ -10,7 +10,7 @@ using System.Text;
 namespace Service
 {
 
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     public class RegisterService : IRegisterService
     {
         private List<Patient.Patient> patients = new List<Patient.Patient>();

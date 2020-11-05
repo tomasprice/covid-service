@@ -11,12 +11,10 @@ namespace ServiceClient
     {
         static private RegisterServiceClient covidService = new CovidServiceReference.RegisterServiceClient();
         static private int userOperation;
-        static private Patient.Patient Patient;
-        static private Patient.PatientContact PatientContact;
 
         static void Main(string[] args)
         {
-
+            // 21/11/2020 12:25:00
             do
             {
                 Menu();
@@ -51,34 +49,29 @@ namespace ServiceClient
 
         static private void AddPatient()
         {
-            string name;
-            string surname;
-            int age;
-            DateTime firstSymptoms;
-            DateTime testDate;
-            string address;
-
             Console.Clear();
-            Console.WriteLine("Type patient data...\n");
+            Console.WriteLine("Patient data\n");
 
-            Console.Write("\t\tName: ");
-            name = Console.ReadLine();
+            Console.Write("\tName: ");
+            var name = Console.ReadLine();
 
-            Console.Write("\t\tSurname: ");
-            surname = Console.ReadLine();
+            Console.Write("\tSurname: ");
+            var surname = Console.ReadLine();
             
-            Console.Write("\t\tAge: ");
-            age = int.Parse(Console.ReadLine());
+            Console.Write("\tAge: ");
+            var age = int.Parse(Console.ReadLine());
 
-            Console.Write("\t\tFirst symptoms: ");
-            firstSymptoms = Convert.ToDateTime(Console.ReadLine());
+            Console.Write("\tFirst symptoms: ");
+            var firstSymptoms = Convert.ToDateTime(Console.ReadLine());
 
-            Console.Write("\t\tTest date: ");
-            testDate = Convert.ToDateTime(Console.ReadLine());
+            Console.Write("\tTest date: ");
+            var testDate = Convert.ToDateTime(Console.ReadLine());
 
-            Console.Write("\t\tAddress: ");
-            address = Console.ReadLine();
+            Console.Write("\tAddress: ");
+            var address = Console.ReadLine();
 
+            var patientContact = GetPatientContact();
+            
             covidService.AddPatient(new Patient.Patient()
             {
                 Name = name,
@@ -86,8 +79,33 @@ namespace ServiceClient
                 Age = age,
                 FirstSymptoms = firstSymptoms,
                 TestDate = testDate,
-                Address = address
+                Address = address,
+                PatientContact = patientContact
             });
+        }
+
+        private static Patient.PatientContact GetPatientContact()
+        {
+            Console.WriteLine("\n\tPatient contact ");
+            Console.Write("\t\tName: ");
+            var name = Console.ReadLine();
+
+            Console.Write("\t\tSurname: ");
+            var surname = Console.ReadLine();
+
+            Console.Write("\t\tTest date: ");
+            var contactDate = Convert.ToDateTime(Console.ReadLine());
+
+            Console.Write("\t\tAddress: ");
+            var address = Console.ReadLine();
+
+            return new Patient.PatientContact
+            {
+                Name = name,
+                Surname = surname,
+                Address = address,
+                ContactDate = contactDate,
+            };
         }
 
         private static void GetPatientsSession()

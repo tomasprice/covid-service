@@ -24,5 +24,13 @@ namespace Patient
         [DataMember]
         public string Address { get; set; }
 
+        [DataMember]
+        public PatientContact PatientContact { get; set; }
+
+        public override string ToString()
+        {
+            return $"";
+        }
+
     }
 }

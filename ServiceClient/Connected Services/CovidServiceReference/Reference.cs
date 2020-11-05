@@ -26,12 +26,6 @@ namespace ServiceClient.CovidServiceReference {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRegisterService/GetPatients", ReplyAction="http://tempuri.org/IRegisterService/GetPatientsResponse")]
         System.Threading.Tasks.Task<Patient.Patient[]> GetPatientsAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRegisterService/AddContact", ReplyAction="http://tempuri.org/IRegisterService/AddContactResponse")]
-        void AddContact(Patient.PatientContact contact);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRegisterService/AddContact", ReplyAction="http://tempuri.org/IRegisterService/AddContactResponse")]
-        System.Threading.Tasks.Task AddContactAsync(Patient.PatientContact contact);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -75,14 +69,6 @@ namespace ServiceClient.CovidServiceReference {
         
         public System.Threading.Tasks.Task<Patient.Patient[]> GetPatientsAsync() {
             return base.Channel.GetPatientsAsync();
-        }
-        
-        public void AddContact(Patient.PatientContact contact) {
-            base.Channel.AddContact(contact);
-        }
-        
-        public System.Threading.Tasks.Task AddContactAsync(Patient.PatientContact contact) {
-            return base.Channel.AddContactAsync(contact);
         }
     }
 }

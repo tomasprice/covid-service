@@ -53,38 +53,39 @@ namespace ServiceClient
         {
             Console.Clear();
             StartSession();
-            Console.WriteLine("Patient data\n");
+            TestMode();
+            //Console.WriteLine("Patient data\n");
 
-            Console.Write("\tName: ");
-            var name = Console.ReadLine();
+            //Console.Write("\tName: ");
+            //var name = Console.ReadLine();
 
-            Console.Write("\tSurname: ");
-            var surname = Console.ReadLine();
+            //Console.Write("\tSurname: ");
+            //var surname = Console.ReadLine();
             
-            Console.Write("\tAge: ");
-            var age = int.Parse(Console.ReadLine());
+            //Console.Write("\tAge: ");
+            //var age = int.Parse(Console.ReadLine());
 
-            Console.Write("\tFirst symptoms: ");
-            var firstSymptoms = Convert.ToDateTime(Console.ReadLine());
+            //Console.Write("\tFirst symptoms: ");
+            //var firstSymptoms = Convert.ToDateTime(Console.ReadLine());
 
-            Console.Write("\tTest date: ");
-            var testDate = Convert.ToDateTime(Console.ReadLine());
+            //Console.Write("\tTest date: ");
+            //var testDate = Convert.ToDateTime(Console.ReadLine());
 
-            Console.Write("\tAddress: ");
-            var address = Console.ReadLine();
+            //Console.Write("\tAddress: ");
+            //var address = Console.ReadLine();
 
-            var patientContact = GetPatientContact();
+            //var patientContact = GetPatientContact();
             
-            covidService.AddPatient(new Patient.CovidPatient()
-            {
-                Name = name,
-                Surname = surname,
-                Age = age,
-                FirstSymptoms = firstSymptoms,
-                TestDate = testDate,
-                Address = address,
-                PatientContact = patientContact
-            });
+            //covidService.AddPatient(new Patient.CovidPatient()
+            //{
+            //    Name = name,
+            //    Surname = surname,
+            //    Age = age,
+            //    FirstSymptoms = firstSymptoms,
+            //    TestDate = testDate,
+            //    Address = address,
+            //    PatientContact = patientContact
+            //});
         }
 
         private static Patient.Contact GetPatientContact()
@@ -109,6 +110,26 @@ namespace ServiceClient
                 Address = address,
                 ContactDate = contactDate,
             };
+        }
+
+        private static void TestMode()
+        {
+            covidService.AddPatient(new Patient.CovidPatient()
+            {
+                Name = "Ala",
+                Surname = "Kot",
+                Age = 42,
+                FirstSymptoms = Convert.ToDateTime("21 / 11 / 2020 12:25:00"),
+                TestDate = Convert.ToDateTime("21 / 11 / 2020 12:25:00"),
+                Address = "Dluga 10",
+                PatientContact = new Patient.Contact
+                {
+                    Address = "Wesola 10",
+                    Name = "Ela",
+                    Surname = "Kowalska",
+                    ContactDate = Convert.ToDateTime("21 / 11 / 2020 12:25:00")
+                }
+            });
         }
 
         static private void StartSession()

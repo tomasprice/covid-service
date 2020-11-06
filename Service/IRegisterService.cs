@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
 
 namespace Service
 {
-    [ServiceContract]
+    [ServiceContract(SessionMode = SessionMode.Required)]
     public interface IRegisterService
     {
-        [OperationContract]
-        void AddPatient(Patient.Patient patient);
+        [OperationContract(IsInitiating = true, IsTerminating = false)]
+        void AddPatient(Patient.CovidPatient patient);
 
-        [OperationContract]
-        IEnumerable<Patient.Patient> GetPatients();
+        [OperationContract(IsInitiating = false, IsTerminating = false)]
+        IEnumerable<Patient.CovidPatient> GetPatients();
 
-        [OperationContract]
-        void AddContact(Patient.PatientContact contact);
+        [OperationContract(IsInitiating = false, IsTerminating = true)]
+        IEnumerable<Patient.CovidPatient> EndSession();
     }
 }

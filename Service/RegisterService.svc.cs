@@ -1,34 +1,28 @@
-﻿using Patient;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.ServiceModel.Web;
-using System.Text;
 
 namespace Service
 {
-
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class RegisterService : IRegisterService
     {
-        private List<Patient.Patient> patients = new List<Patient.Patient>();
-        private List<Patient.PatientContact> patientContacts = new List<PatientContact>();
+        private readonly List<Patient.CovidPatient> Patients = new List<Patient.CovidPatient>();
 
-        public void AddPatient(Patient.Patient patient)
+        public void AddPatient(Patient.CovidPatient patient)
         {
-            patients.Add(patient);
+            Patients.Add(patient);
         }
 
-        public void AddContact(PatientContact contact)
+        public IEnumerable<Patient.CovidPatient> EndSession()
         {
-            patientContacts.Add(contact);
+            return Patients.ToList();
         }
 
-        public IEnumerable<Patient.Patient> GetPatients()
+        public IEnumerable<Patient.CovidPatient> GetPatients()
         {
-            return patients.ToList();
+            return Patients.ToList();
         }
 
     }

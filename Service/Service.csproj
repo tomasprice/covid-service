@@ -72,7 +72,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <ProjectReference Include="..\Patient\Patient.csproj">
+      <Project>{b8e8a1b4-44d1-4e7f-bb53-564ecbefa965}</Project>
+      <Name>Patient</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Web.Debug.config">
@@ -81,12 +84,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Patient\Patient.csproj">
-      <Project>{b8e8a1b4-44d1-4e7f-bb53-564ecbefa965}</Project>
-      <Name>Patient</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

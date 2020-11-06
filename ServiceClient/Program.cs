@@ -9,7 +9,7 @@ namespace ServiceClient
 {
     class Program
     {
-        static private RegisterServiceClient covidService = new CovidServiceReference.RegisterServiceClient();
+        static private RegisterServiceClient covidService = null;
         static private int userOperation;
 
         static void Main(string[] args)
@@ -52,6 +52,7 @@ namespace ServiceClient
         static private void AddPatient()
         {
             Console.Clear();
+            StartSession();
             Console.WriteLine("Patient data\n");
 
             Console.Write("\tName: ");
@@ -84,19 +85,6 @@ namespace ServiceClient
                 Address = address,
                 PatientContact = patientContact
             });
-
-        }
-        static private void EndSession()
-        {
-            var patients = covidService.EndSession();
-
-            for (int i = 0; i < patients.Count(); i++)
-            {
-                var patient = patients[i];
-                GetPatient(patient, i);
-            }
-
-            Console.WriteLine("\n\n***Session has ended.***");
         }
 
         private static Patient.Contact GetPatientContact()
@@ -123,9 +111,53 @@ namespace ServiceClient
             };
         }
 
+        static private void StartSession()
+        {
+            if (covidService == null)
+            {
+                covidService = new CovidServiceReference.RegisterServiceClient();
+            }
+        }
+
+        static private void EndSession()
+        {
+            Console.Clear();
+            if (CheckSession())
+            {
+                Console.WriteLine("***Session not started.***");
+                Console.WriteLine("***Start session first (AddPatient()).***");
+                return;
+            }
+            var patients = covidService.EndSession();
+
+            for (int i = 0; i < patients.Count(); i++)
+            {
+                var patient = patients[i];
+                GetPatient(patient, i);
+            }
+            covidService = null;
+            Console.WriteLine("\n\n***Session has ended.***");
+        }
+
+        static private bool CheckSession()
+        {
+            if (covidService == null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         private static void GetPatientsSession()
         {
             Console.Clear();
+            if (CheckSession())
+            {
+                Console.WriteLine("***Session not started.***");
+                Console.WriteLine("***Start session first (AddPatient()).***");
+                return;
+            }
             var patients = covidService.GetPatients();
 
             for (int i = 0; i < patients.Count(); i++)
@@ -154,8 +186,6 @@ namespace ServiceClient
             Console.WriteLine($"\t\t\tSurname: {patient.PatientContact.Surname}");
             Console.WriteLine($"\t\t\tContact date: {patient.PatientContact.ContactDate}");
             Console.WriteLine($"\t\t\tAddress: {patient.PatientContact.Address}");
-
-
         }
     }
 }

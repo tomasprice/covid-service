@@ -5,7 +5,7 @@ using System.ServiceModel;
 
 namespace Service
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     public class RegisterService : IRegisterService
     {
         private readonly List<Patient.CovidPatient> Patients = new List<Patient.CovidPatient>();

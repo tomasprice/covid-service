@@ -65,6 +65,7 @@
     <None Include="Connected Services\CovidServiceReference\RegisterService2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Properties\DataSources\Patient.CovidPatient.datasource" />
     <None Include="Properties\DataSources\Patient.Patient.datasource" />
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Patient
 {
     [DataContract]
-    public class PatientContact
+    public class Contact
     {
         [DataMember]
         public string Name { get; set; }

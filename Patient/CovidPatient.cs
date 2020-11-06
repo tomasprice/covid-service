@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Patient
 {
     [DataContract]
-    public class Patient
+    public class CovidPatient
     {
         [DataMember]
         public string Name { get; set; }
@@ -25,7 +25,7 @@ namespace Patient
         public string Address { get; set; }
 
         [DataMember]
-        public PatientContact PatientContact { get; set; }
+        public Contact PatientContact { get; set; }
 
         public override string ToString()
         {

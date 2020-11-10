@@ -13,15 +13,27 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetPatients">
+  <xs:element name="AddContact">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Patient" minOccurs="0" name="contact" nillable="true" type="q2:Contact" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddContactResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetPatientsResponse">
+  <xs:element name="GetPatient">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPatientResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Patient" minOccurs="0" name="GetPatientsResult" nillable="true" type="q2:ArrayOfCovidPatient" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Patient" minOccurs="0" name="GetPatientResult" nillable="true" type="q3:CovidPatient" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -33,7 +45,7 @@
   <xs:element name="EndSessionResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Patient" minOccurs="0" name="EndSessionResult" nillable="true" type="q3:ArrayOfCovidPatient" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Patient" minOccurs="0" name="EndSessionResult" nillable="true" type="q4:ArrayOfCovidPatient" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

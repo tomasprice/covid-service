@@ -21,11 +21,17 @@ namespace ServiceClient.CovidServiceReference {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRegisterService/AddPatient", ReplyAction="http://tempuri.org/IRegisterService/AddPatientResponse")]
         System.Threading.Tasks.Task AddPatientAsync(Patient.CovidPatient patient);
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IRegisterService/GetPatients", ReplyAction="http://tempuri.org/IRegisterService/GetPatientsResponse")]
-        Patient.CovidPatient[] GetPatients();
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IRegisterService/AddContact", ReplyAction="http://tempuri.org/IRegisterService/AddContactResponse")]
+        void AddContact(Patient.Contact contact);
         
-        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IRegisterService/GetPatients", ReplyAction="http://tempuri.org/IRegisterService/GetPatientsResponse")]
-        System.Threading.Tasks.Task<Patient.CovidPatient[]> GetPatientsAsync();
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IRegisterService/AddContact", ReplyAction="http://tempuri.org/IRegisterService/AddContactResponse")]
+        System.Threading.Tasks.Task AddContactAsync(Patient.Contact contact);
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IRegisterService/GetPatient", ReplyAction="http://tempuri.org/IRegisterService/GetPatientResponse")]
+        Patient.CovidPatient GetPatient();
+        
+        [System.ServiceModel.OperationContractAttribute(IsInitiating=false, Action="http://tempuri.org/IRegisterService/GetPatient", ReplyAction="http://tempuri.org/IRegisterService/GetPatientResponse")]
+        System.Threading.Tasks.Task<Patient.CovidPatient> GetPatientAsync();
         
         [System.ServiceModel.OperationContractAttribute(IsTerminating=true, IsInitiating=false, Action="http://tempuri.org/IRegisterService/EndSession", ReplyAction="http://tempuri.org/IRegisterService/EndSessionResponse")]
         Patient.CovidPatient[] EndSession();
@@ -69,12 +75,20 @@ namespace ServiceClient.CovidServiceReference {
             return base.Channel.AddPatientAsync(patient);
         }
         
-        public Patient.CovidPatient[] GetPatients() {
-            return base.Channel.GetPatients();
+        public void AddContact(Patient.Contact contact) {
+            base.Channel.AddContact(contact);
         }
         
-        public System.Threading.Tasks.Task<Patient.CovidPatient[]> GetPatientsAsync() {
-            return base.Channel.GetPatientsAsync();
+        public System.Threading.Tasks.Task AddContactAsync(Patient.Contact contact) {
+            return base.Channel.AddContactAsync(contact);
+        }
+        
+        public Patient.CovidPatient GetPatient() {
+            return base.Channel.GetPatient();
+        }
+        
+        public System.Threading.Tasks.Task<Patient.CovidPatient> GetPatientAsync() {
+            return base.Channel.GetPatientAsync();
         }
         
         public Patient.CovidPatient[] EndSession() {

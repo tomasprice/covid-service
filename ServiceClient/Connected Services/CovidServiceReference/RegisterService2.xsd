@@ -6,12 +6,18 @@
       <xs:element minOccurs="0" name="Age" type="xs:int" />
       <xs:element minOccurs="0" name="FirstSymptoms" type="xs:dateTime" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="PatientContact" nillable="true" type="tns:Contact" />
+      <xs:element minOccurs="0" name="PatientContact" nillable="true" type="tns:ArrayOfContact" />
       <xs:element minOccurs="0" name="Surname" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TestDate" type="xs:dateTime" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="CovidPatient" nillable="true" type="tns:CovidPatient" />
+  <xs:complexType name="ArrayOfContact">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Contact" nillable="true" type="tns:Contact" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfContact" nillable="true" type="tns:ArrayOfContact" />
   <xs:complexType name="Contact">
     <xs:sequence>
       <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />

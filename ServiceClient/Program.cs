@@ -25,16 +25,19 @@ namespace ServiceClient
                         AddPatient();
                         break;
                     case 2:
-                        GetPatientsSession();
+                        AddContact();
                         break;
                     case 3:
+                        GetPatientsSession();
+                        break;
+                    case 4:
                         EndSession();
                         break;
                 }
                 Console.ReadLine();
                 Console.Clear();
 
-            } while (userOperation != 4);
+            } while (userOperation != 5);
         }
 
         static private void Menu()
@@ -43,9 +46,10 @@ namespace ServiceClient
             Console.WriteLine("\n\n");
             Console.WriteLine("Select operation from bellow menu.");
             Console.WriteLine("1. Add Patient");
-            Console.WriteLine("2. Get Added Patients (returns session patients)");
-            Console.WriteLine("3. End connection (ends session, returns patients)");
-            Console.WriteLine("4. Exit");
+            Console.WriteLine("2. Add Contact");
+            Console.WriteLine("3. Get Added Patients (returns session patients)");
+            Console.WriteLine("4. End connection (ends session, returns patients)");
+            Console.WriteLine("5. Exit");
             Console.Write("\nWhat should I do?: ");
         }
 
@@ -88,30 +92,6 @@ namespace ServiceClient
             //});
         }
 
-        private static Patient.Contact GetPatientContact()
-        {
-            Console.WriteLine("\n\tPatient contact ");
-            Console.Write("\t\tName: ");
-            var name = Console.ReadLine();
-
-            Console.Write("\t\tSurname: ");
-            var surname = Console.ReadLine();
-
-            Console.Write("\t\tContact date: ");
-            var contactDate = Convert.ToDateTime(Console.ReadLine());
-
-            Console.Write("\t\tAddress: ");
-            var address = Console.ReadLine();
-
-            return new Patient.Contact
-            {
-                Name = name,
-                Surname = surname,
-                Address = address,
-                ContactDate = contactDate,
-            };
-        }
-
         private static void TestMode()
         {
             covidService.AddPatient(new Patient.CovidPatient()
@@ -122,14 +102,51 @@ namespace ServiceClient
                 FirstSymptoms = Convert.ToDateTime("21 / 11 / 2020 12:25:00"),
                 TestDate = Convert.ToDateTime("21 / 11 / 2020 12:25:00"),
                 Address = "Dluga 10",
-                PatientContact = new Patient.Contact
-                {
-                    Address = "Wesola 10",
-                    Name = "Ela",
-                    Surname = "Kowalska",
-                    ContactDate = Convert.ToDateTime("21 / 11 / 2020 12:25:00")
-                }
+                PatientContact = new List<Patient.Contact>()
             });
+            Console.WriteLine("Auto added patient");
+        }
+
+        private static void AddContact()
+        {
+            Console.Clear();
+            if (CheckSession())
+            {
+                Console.WriteLine("***Session not started.***");
+                Console.WriteLine("***Start session first (AddPatient()).***");
+                return;
+            }
+
+            var contact = new Patient.Contact
+            {
+                Name = "Contact",
+                Surname = "Contact surname",
+                Address = "Elk, Poland",
+                ContactDate = Convert.ToDateTime("21/11/2020 12:25:00")
+            };
+            covidService.AddContact(contact);
+            Console.WriteLine("Auto added contact");
+
+            //Console.WriteLine("\n\tPatient contact ");
+            //Console.Write("\t\tName: ");
+            //var name = Console.ReadLine();
+
+            //Console.Write("\t\tSurname: ");
+            //var surname = Console.ReadLine();
+
+            //Console.Write("\t\tContact date: ");
+            //var contactDate = Convert.ToDateTime(Console.ReadLine());
+
+            //Console.Write("\t\tAddress: ");
+            //var address = Console.ReadLine();
+
+            //patient.PatientContact.Add(new Patient.Contact
+            //{
+            //    Name = name,
+            //    Surname = surname,
+            //    Address = address,
+            //    ContactDate = contactDate,
+            //});
         }
 
         static private void StartSession()
@@ -154,7 +171,7 @@ namespace ServiceClient
             for (int i = 0; i < patients.Count(); i++)
             {
                 var patient = patients[i];
-                GetPatient(patient, i);
+                GetAllPatients(patient, i);
             }
             covidService = null;
             Console.WriteLine("\n\n***Session has ended.***");
@@ -179,19 +196,20 @@ namespace ServiceClient
                 Console.WriteLine("***Start session first (AddPatient()).***");
                 return;
             }
-            var patients = covidService.GetPatients();
+            var patients = covidService.GetPatient();
 
-            for (int i = 0; i < patients.Count(); i++)
-            {
-                var patient = patients[i];
-                GetPatient(patient, i);
-            }
+            GetPatient(covidService.GetPatient());
         }
 
-        private static void GetPatient(Patient.CovidPatient patient, int index)
+        private static void GetAllPatients(Patient.CovidPatient patient, int index)
+        {
+            Console.WriteLine($"\t***Displaying patient data for record {index}***");
+            GetPatient(patient);
+        }
+
+        private static void GetPatient(Patient.CovidPatient patient)
         {
             Console.WriteLine("\n");
-            Console.WriteLine($"\t***Displaying patient data for record {index}***");
 
             // Patient
             Console.WriteLine($"\t\tName: {patient.Name}");
@@ -202,11 +220,16 @@ namespace ServiceClient
             Console.WriteLine($"\t\tAddress: {patient.Age}");
 
             // Contact
-            Console.WriteLine("\t\t***Patient contact data***");
-            Console.WriteLine($"\t\t\tName: {patient.PatientContact.Name}");
-            Console.WriteLine($"\t\t\tSurname: {patient.PatientContact.Surname}");
-            Console.WriteLine($"\t\t\tContact date: {patient.PatientContact.ContactDate}");
-            Console.WriteLine($"\t\t\tAddress: {patient.PatientContact.Address}");
+            Console.WriteLine("\n\t\t***Contacts data***");
+            foreach (var item in patient.PatientContact)
+            { 
+                Console.WriteLine($"\t\t\tName: {item.Name}");
+                Console.WriteLine($"\t\t\tSurname: {item.Surname}");
+                Console.WriteLine($"\t\t\tContact date: {item.ContactDate}");
+                Console.WriteLine($"\t\t\tAddress: {item.Address}");
+                Console.WriteLine();
+            }
+       
         }
     }
 }

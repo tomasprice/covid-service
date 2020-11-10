@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Patient
@@ -25,7 +26,7 @@ namespace Patient
         public string Address { get; set; }
 
         [DataMember]
-        public Contact PatientContact { get; set; }
+        public List<Contact> PatientContact { get; set; }
 
         public override string ToString()
         {

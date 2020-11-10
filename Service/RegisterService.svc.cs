@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Patient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -15,15 +16,20 @@ namespace Service
             Patients.Add(patient);
         }
 
+        public void AddContact(Contact contact)
+        {
+            var indexLast = Patients.Count() - 1;
+            Patients[indexLast].PatientContact.Add(contact);
+        }
+
+        public Patient.CovidPatient GetPatient()
+        {
+            return Patients.LastOrDefault();
+        }
+
         public IEnumerable<Patient.CovidPatient> EndSession()
         {
             return Patients.ToList();
         }
-
-        public IEnumerable<Patient.CovidPatient> GetPatients()
-        {
-            return Patients.ToList();
-        }
-
     }
 }

@@ -10,7 +10,10 @@ namespace Service
         void AddPatient(Patient.CovidPatient patient);
 
         [OperationContract(IsInitiating = false, IsTerminating = false)]
-        IEnumerable<Patient.CovidPatient> GetPatients();
+        void AddContact(Patient.Contact contact);
+
+        [OperationContract(IsInitiating = false, IsTerminating = false)]
+        Patient.CovidPatient GetPatient();
 
         [OperationContract(IsInitiating = false, IsTerminating = true)]
         IEnumerable<Patient.CovidPatient> EndSession();

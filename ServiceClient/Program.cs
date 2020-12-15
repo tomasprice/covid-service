@@ -215,9 +215,9 @@ namespace ServiceClient
             Console.WriteLine($"\t\tName: {patient.Name}");
             Console.WriteLine($"\t\tSurname: {patient.Surname}");
             Console.WriteLine($"\t\tAge: {patient.Age}");
-            Console.WriteLine($"\t\tFirst symptoms: {patient.Age}");
-            Console.WriteLine($"\t\tDate of test: {patient.Age}");
-            Console.WriteLine($"\t\tAddress: {patient.Age}");
+            Console.WriteLine($"\t\tFirst symptoms: {patient.FirstSymptoms}");
+            Console.WriteLine($"\t\tDate of test: {patient.TestDate}");
+            Console.WriteLine($"\t\tAddress: {patient.Address}");
 
             // Contact
             Console.WriteLine("\n\t\t***Contacts data***");
